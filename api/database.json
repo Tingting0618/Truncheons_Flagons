@@ -1,6 +1,5 @@
 {
-    "allTeams": [
-        {
+    "allTeams": [{
             "id": 1,
             "teamName": "Green Wyverns",
             "currentPoints": 10
@@ -17,27 +16,9 @@
         }
     ],
     "players": [
-        {
-            "id": 1,
-            "firstName": "Joyce",
-            "lastName": "Zhang",
-            "playerTeamId": 1
-        },
-        {
-            "id": 2,
-            "firstName": "Brittany",
-            "lastName": "Garrett",
-            "playerTeamId": 1
-        },
-        {
-            "id": 3,
-            "firstName": "Tingting",
-            "lastName": "Duan",
-            "playerTeamId": 2
-        }
+
     ],
     "scores": [
 
     ]
 }
-
