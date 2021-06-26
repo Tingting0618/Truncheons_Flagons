@@ -25,8 +25,8 @@ export const getButtons = () => {
 }
 
 export const setButtons = () => {
-    const readyButton = {...applicationState.readyButton }
-    readyButton.id = applicationState.readyButtons.length + 1
-    readyButton.name = `<button>Team ${readyButton.id} Ready!</button>`
-    applicationState.readyButtons.push(readyButton)
+    const newReadyButton = {...applicationState.readyButton }
+    newReadyButton.id = applicationState.readyButtons.length + 1
+    newReadyButton.name = `<button>Team ${newReadyButton.id} Ready!</button>`
+    applicationState.readyButtons.push(newReadyButton)
 }
