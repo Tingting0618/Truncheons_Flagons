@@ -1,23 +1,23 @@
-import { fetchTeams, getTeams, getButtons, setButtons } from "./dataAccess.js"
+import { fetchTeams, getTeams, getButtons, setButtons } from './dataAccess.js';
 
-const mainContainer = document.querySelector("#enter-team-container")
+const mainContainer = document.querySelector('#enter-team-container');
 
 fetchTeams().then(() => {
-    mainContainer.innerHTML = Form()
-})
+  mainContainer.innerHTML = Form();
+});
 
 
 const Form = () => {
-        const teams = getTeams()
-        const buttons = getButtons()
-        return `
+  const teams = getTeams();
+  const buttons = getButtons();
+  return `
         <div class="field">
         <lable>Team Name: </lable>
         <select id="choose-team">
         <option>please choose a team</option>
             ${teams.map(team => {
-                return `<option>${team.teamName}</option>`
-            }).join("")}
+    return `<option>${team.teamName}</option>`;
+  }).join('')}
         </select>
         </div>
 
@@ -42,39 +42,39 @@ const Form = () => {
 
         <div class="buttons">
         ${buttons.map(button => {
-            return `${button.name}`
-        }).join("")}
+    return `${button.name}`;
+  }).join('')}
         </div>
 
-        `
-        
-}
+        `;
+
+};
 
 
-document.addEventListener("click", e => {
-    if(e.target.id === "create-team"){
-        const theTeamIndex =  document.getElementById("choose-team").selectedIndex
-        const userTeamName = document.getElementById("choose-team").options[theTeamIndex].text
-        const userFirstPlayerName = document.getElementById("first_player_name").value
-        const userSecondPlayerName = document.getElementById("second_player_name").value
-        const userThirdPlayerName = document.getElementById("third_player_name").value
+document.addEventListener('click', e => {
+  if (e.target.id === 'create-team') {
+    const theTeamIndex = document.getElementById('choose-team').selectedIndex;
+    const userTeamName = document.getElementById('choose-team').options[theTeamIndex].text;
+    const userFirstPlayerName = document.getElementById('first_player_name').value;
+    const userSecondPlayerName = document.getElementById('second_player_name').value;
+    const userThirdPlayerName = document.getElementById('third_player_name').value;
 
-        if(userTeamName&&userFirstPlayerName&&userSecondPlayerName&&userThirdPlayerName){
-            setButtons()
-            document.dispatchEvent(new CustomEvent("state-changed"))
-        }
-    }   
-})
-
-document.addEventListener("state-changed", e => {
-    const buttons = getButtons()
-    if(buttons.length < 3){
-        fetchTeams().then(() => {
-            mainContainer.innerHTML = `${Form()}`
-        })
-    }else {
-        fetchTeams().then(() => {
-            mainContainer.innerHTML = `${Form()} <a><button>Head to Scoreboard</button></a>`
-        })
+    if (userTeamName && userFirstPlayerName && userSecondPlayerName && userThirdPlayerName) {
+      setButtons();
+      document.dispatchEvent(new CustomEvent('state-changed'));
     }
-})
+  }
+});
+
+document.addEventListener('state-changed', e => {
+  const buttons = getButtons();
+  if (buttons.length < 3) {
+    fetchTeams().then(() => {
+      mainContainer.innerHTML = `${Form()}`;
+    });
+  } else {
+    fetchTeams().then(() => {
+      mainContainer.innerHTML = `${Form()} <a><button>Head to Scoreboard</button></a>`;
+    });
+  }
+});
