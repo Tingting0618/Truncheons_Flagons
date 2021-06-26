@@ -20,6 +20,8 @@ export const getTeams = () => {
     return teams.map(team => ({...team }))
 }
 
+
+
 export const getButtons = () => {
     return applicationState.readyButtons.map(button => ({...button }))
 }
