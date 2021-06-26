@@ -1,15 +1,15 @@
-import { fetchTeams, getTeams } from "./dataAccess.js"
+import { fetchTeams, getTeams, getButtons, setButtons } from "./dataAccess.js"
 
 const mainContainer = document.querySelector("#enter-team-container")
 
 fetchTeams().then(() => {
     mainContainer.innerHTML = Form()
-
 })
 
 
 const Form = () => {
         const teams = getTeams()
+        const buttons = getButtons()
         return `
         <div class="field">
         <lable>Team Name: </lable>
@@ -39,6 +39,13 @@ const Form = () => {
         <div class="field">
         <button id="create-team">Create Team</button>
         </div>
+
+        <div class="buttons">
+        ${buttons.map(button => {
+            return `${button.name}`
+        }).join("")}
+        </div>
+
         `
         
 }
@@ -53,41 +60,21 @@ document.addEventListener("click", e => {
         const userThirdPlayerName = document.getElementById("third_player_name").value
 
         if(userTeamName&&userFirstPlayerName&&userSecondPlayerName&&userThirdPlayerName){
-            document.dispatchEvent(new CustomEvent("team-1-ready"))
+            setButtons()
+            document.dispatchEvent(new CustomEvent("state-changed"))
         }
     }   
 })
 
-document.addEventListener("team-1-ready", e => {
-    const teamOneReady = "<button>Team 1 Ready!</button>"
-    fetchTeams().then(() => {
-        mainContainer.innerHTML = `${Form()} ${teamOneReady}`
-    })
-    alert("Please Choose the second team!")
-
+document.addEventListener("state-changed", e => {
+    const buttons = getButtons()
+    if(buttons.length < 3){
+        fetchTeams().then(() => {
+            mainContainer.innerHTML = `${Form()}`
+        })
+    }else {
+        fetchTeams().then(() => {
+            mainContainer.innerHTML = `${Form()} <a><button>Head to Scoreboard</button></a>`
+        })
+    }
 })
-
-
-// document.addEventListener("click", e => {
-//     if(e.target.id === "save-team"){
-//         const theTeamIndex =  document.getElementById("choose-team").selectedIndex
-//         const userTeamName = document.getElementById("choose-team").options[theTeamIndex].text
-//         const userFirstPlayerName = document.getElementById("first_player_name").value
-//         const userSecondPlayerName = document.getElementById("second_player_name").value
-//         const userThirdPlayerName = document.getElementById("third_player_name").value
-
-//         if(userTeamName&&userFirstPlayerName&&userSecondPlayerName&&userThirdPlayerName){
-//             document.dispatchEvent(new CustomEvent("team-2-ready"))
-//         }
-// }})
-
-// document.addEventListener("team-2-ready", e => {
-//     const teamOneReady = "<button>Team 2 Ready!</button>"
-//     const teamTwoReady = "<button>Team 2 Ready!</button>"
-   
-//     fetchTeams().then(() => {
-//         mainContainer.innerHTML = `${Form()} ${teamTwoReady}`
-//     })
-//     alert("Please Choose the third team!")
-
-// })
