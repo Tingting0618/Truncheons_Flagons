@@ -1,6 +1,6 @@
 const applicationState = {}
 
-const API = "http://localhost:4000"
+const API = "http://localhost:4000" // json-server api/database.json -p 4000 -w
 
 let teams = []
 export const fetchTeams = () => {
