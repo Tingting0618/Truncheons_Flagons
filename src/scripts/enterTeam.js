@@ -11,7 +11,11 @@ const Form = () => {
   const teams = getTeams();
   const buttons = getButtons();
   return `
-        <div class="field">
+      <div class="header_div">
+      <h1 class="tf-header">TRUNCHEONS & FLAGONS</h1>
+      </div>
+       
+      <div class="field">
         <lable>Team Name: </lable>
         <select id="choose-team">
         <option>please choose a team</option>
@@ -74,7 +78,13 @@ document.addEventListener('state-changed', e => {
     });
   } else {
     fetchTeams().then(() => {
-      mainContainer.innerHTML = `${Form()} <a><button>Head to Scoreboard</button></a>`;
+      mainContainer.innerHTML = `<div class="buttons">
+      ${buttons.map(button => {
+    return `${button.name}`;
+  }).join('')}
+      </div>
+      <a href="../pages/rounds.html"><button>Head to Scoreboard</button></a>
+      `;
     });
   }
 });
