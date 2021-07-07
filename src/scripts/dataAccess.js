@@ -32,3 +32,19 @@ export const setButtons = () => {
     readyButton.name = `<button>Team ${readyButton.id} Ready!</button>`
     applicationState.readyButtons.push(readyButton)
 }
+
+export const saveGame = (roundOne) => {
+    const fetchOptions = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(roundOne)
+    }
+
+    return fetch(`${API}/scores`, fetchOptions)
+    .then(response => response.json())
+    .then((data) => {
+        //put method that will change allTeams.currentPoints
+    })
+}

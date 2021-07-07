@@ -1,24 +1,28 @@
 {
-    "allTeams": [{
-            "id": 1,
-            "teamName": "Green Wyverns",
-            "currentPoints": 10
-        },
-        {
-            "id": 2,
-            "teamName": "French Flagons",
-            "currentPoints": 25
-        },
-        {
-            "id": 3,
-            "teamName": "Black Knights",
-            "currentPoints": 100
-        }
-    ],
-    "players": [
-
-    ],
-    "scores": [
-      
-    ]
+  "allTeams": [
+    {
+      "id": 1,
+      "teamName": "Green Wyverns",
+      "currentPoints": 10
+    },
+    {
+      "id": 2,
+      "teamName": "French Flagons",
+      "currentPoints": 25
+    },
+    {
+      "id": 3,
+      "teamName": "Black Knights",
+      "currentPoints": 100
+    }
+  ],
+  "players": [],
+  "scores": [
+    {
+      "teamOne": 10,
+      "teamTwo": 8,
+      "teamThree": 9,
+      "id": 1
+    }
+  ]
 }
