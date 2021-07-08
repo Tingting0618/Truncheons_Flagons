@@ -13,15 +13,49 @@
     {
       "id": 3,
       "teamName": "Black Knights",
-      "currentPoints": 100
+      "currentPoints": 67
+    },
+    {
+      "id": 4,
+      "teamName": "Midnight Killers",
+      "currentPoints": 56
+    },
+    {
+      "id": 5,
+      "teamName": "Pink Daisies",
+      "currentPoints": 23
+    },
+    {
+      "id": 6,
+      "teamName": "Happy Hour Chaps",
+      "currentPoints": 44
     }
   ],
-  "players": [],
+  "userTeams": [
+    {
+      "id": 1,
+      "teamName": "Happy Hour Chaps",
+      "teamId": 6
+    },
+    {
+      "teamName": "Green Wyverns",
+      "teamId": 1,
+      "id": 2
+    },
+    {
+      "teamName": "Pink Daisies",
+      "teamId": 5,
+      "id": 3
+    }
+  ],
   "scores": [
     {
-      "teamOne": 10,
-      "teamTwo": 8,
-      "teamThree": 9,
+      "firstTeamName": "Happy Hour Chaps",
+      "firstTeamScore": 11,
+      "secondTeamName": "Green Wyverns",
+      "secondTeamScore": 20,
+      "thirdTeamName": "Pink Daisies",
+      "thirdTeamScore": 14,
       "id": 1
     }
   ]
