@@ -1,9 +1,9 @@
 /* eslint-disable indent */
-import { getTeams, fetchTeams, saveGame } from './dataAccess.js';
+import { getUserTeams, fetchUserTeams, saveGame } from './dataAccess.js';
 
 const roundsBody = document.querySelector('#rounds-container'); 
 
-fetchTeams().then(() => {
+fetchUserTeams().then(() => {
     roundsBody.innerHTML = `${roundPage()}`;
   });
 
@@ -11,10 +11,13 @@ fetchTeams().then(() => {
 const roundPage = () => {
     let html = '';
     html += ` 
+    <h2>Round One</h2>
     ${roundTable()}
+    <h2>Round Two</h2>
     ${roundTable()}
+    <h2>Round Three</h2>
     ${roundTable()}
-    <button id="save_game">Save Game</button><br>
+    <a href="../pages/leaderboard.html"><button id="save_game">Save Game</button></a><br>
     `;
     return html; 
 };
@@ -22,21 +25,21 @@ const roundPage = () => {
 
   const roundTable = () => {
       
-      const teams = getTeams();
+      const teams = getUserTeams();
 
       return `
       <div class="round_table">
       <table>
       <thead>
       <tr>
-      <th>Round Score</th>
+      <th>🎲</th>
       </tr>
       </thead>
       <tbody>
       <tr>
       ${teams.map(team => {
           return `
-          <td value="${team.id}">${team.teamName}</td>
+          <td class="${team.id}">${team.teamName}</td>
           <td><input class="points" type="number" id="${team.id}"/></td>
           `;
         }).join('')}
@@ -49,15 +52,21 @@ const roundPage = () => {
     
     roundsBody.addEventListener('click', e => {
         if (e.target.id === 'save_game') {
-            const teamOneGame = parseInt(document.querySelectorAll('.points')[0].value) + parseInt(document.querySelectorAll('.points')[3].value) + parseInt(document.querySelectorAll('.points')[6].value);
-            const teamTwoGame = parseInt(document.querySelectorAll('.points')[1].value) + parseInt(document.querySelectorAll('.points')[4].value) + parseInt(document.querySelectorAll('.points')[7].value);
-            const teamThreeGame = parseInt(document.querySelectorAll('.points')[2].value) + parseInt(document.querySelectorAll('.points')[5].value) + parseInt(document.querySelectorAll('.points')[8].value);
+            const teamOneGameScore = parseInt(document.querySelectorAll('.points')[0].value) + parseInt(document.querySelectorAll('.points')[3].value) + parseInt(document.querySelectorAll('.points')[6].value);
+            const teamTwoGameScore = parseInt(document.querySelectorAll('.points')[1].value) + parseInt(document.querySelectorAll('.points')[4].value) + parseInt(document.querySelectorAll('.points')[7].value);
+            const teamThreeGameScore = parseInt(document.querySelectorAll('.points')[2].value) + parseInt(document.querySelectorAll('.points')[5].value) + parseInt(document.querySelectorAll('.points')[8].value);
 
+            const firstTeamName = document.getElementsByClassName('1')[0].textContent;
+            const secondTeamName = document.getElementsByClassName('2')[0].textContent;
+            const thirdTeamName = document.getElementsByClassName('3')[0].textContent;
 
             const sendToAPI = {
-                teamOne : teamOneGame,
-                teamTwo : teamTwoGame,
-                teamThree : teamThreeGame
+                firstTeamName : firstTeamName,
+                firstTeamScore: teamOneGameScore,
+                secondTeamName : secondTeamName,
+                secondTeamScore: teamTwoGameScore,
+                thirdTeamName : thirdTeamName,
+                thirdTeamScore: teamThreeGameScore,
             };
         
             // if(document.querySelectorAll('.points').every(input => {

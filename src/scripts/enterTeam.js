@@ -1,4 +1,4 @@
-import { fetchTeams, getTeams, getButtons, setButtons } from './dataAccess.js';
+import { fetchTeams, getTeams, sendTeams, getButtons, setButtons } from './dataAccess.js';
 
 const mainContainer = document.querySelector('#enter-team-container');
 
@@ -16,28 +16,13 @@ const Form = () => {
       </div>
        
       <div class="field">
-        <lable>Team Name: </lable>
+        <label>Team Name: </label>
         <select id="choose-team">
         <option>please choose a team</option>
             ${teams.map(team => {
-    return `<option>${team.teamName}</option>`;
+    return `<option value="${team.id}">${team.teamName}</option>`;
   }).join('')}
         </select>
-        </div>
-
-        <div class="field">
-        <lable for="first_player_name">First Player Name: </lable>
-        <input type="text" id="first_player_name">
-        </div>
-
-        <div class="field">
-        <lable for="second_player_name">Second Player Name: </lable>
-        <input type="text" id="second_player_name">
-        </div>
-
-        
-        <lable for="third_player_name">Third Player Name: </lable>
-        <input type="text" id="third_player_name">
         </div>
 
         <div class="field">
@@ -59,18 +44,21 @@ document.addEventListener('click', e => {
   if (e.target.id === 'create-team') {
     const theTeamIndex = document.getElementById('choose-team').selectedIndex;
     const userTeamName = document.getElementById('choose-team').options[theTeamIndex].text;
-    const userFirstPlayerName = document.getElementById('first_player_name').value;
-    const userSecondPlayerName = document.getElementById('second_player_name').value;
-    const userThirdPlayerName = document.getElementById('third_player_name').value;
 
-    if (userTeamName && userFirstPlayerName && userSecondPlayerName && userThirdPlayerName) {
+    const dataSendToAPI = {
+      teamName : userTeamName,
+      teamId : theTeamIndex
+    };
+
+    if (userTeamName) {
       setButtons();
+      sendTeams(dataSendToAPI);
       document.dispatchEvent(new CustomEvent('state-changed'));
     }
   }
 });
 
-document.addEventListener('state-changed', e => {
+document.addEventListener('state-changed', () => {
   const buttons = getButtons();
   if (buttons.length < 3) {
     fetchTeams().then(() => {
